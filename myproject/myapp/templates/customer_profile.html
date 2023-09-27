@@ -1,0 +1,15 @@
+<!-- customer_profile.html -->
+
+<h1>Customer Profile</h1>
+<img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+<p>Username: {{ profile.user.username }}</p>
+<p>Email: {{ profile.user.email }}</p>
+<p>Location: {{ profile.location }}</p>
+<!-- Display other profile information -->
+
+<h2>Edit Profile</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+</form>
