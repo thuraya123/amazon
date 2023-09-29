@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Choice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-button {
+            width: 200px;
+            height: 200px;
+            margin: 20px;
+            border: 2px solid #007BFF;
+            background-color: #FFFFFF;
+            text-align: center;
+            line-height: 200px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .signup-button:hover {
+            background-color: #007BFF;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <a href="{% url 'customer_signup' %}" class="signup-button">Customer</a>
+        <a href="{% url 'organization_signup' %}" class="signup-button">Organization</a>
+    </div>
+</body>
+</html>

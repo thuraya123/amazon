@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-^f*+b^knhhyah_u*_k1)i*qjp=edn74q%t!a2_yfia!07*$2)a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',
     'allauth',
-    'allauth.account',
+
 ]
 
 MIDDLEWARE = [
@@ -124,36 +124,11 @@ STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'myapp.CustomUser'
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-     'allauth.account.auth_backends.AuthenticationBackend',
-)
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server
-EMAIL_PORT = 587  # Replace with the appropriate port
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'forwardmeals@gmail.com'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'Forwardmeals20'  # Replace with your email password
 
 
-AUTH_USER_MODEL = 'myapp.CustomUser'  # Replace 'yourapp' with your app's name
 
-LOGIN_REDIRECT_URL = '/home/'  # Replace with your desired redirect URL
-LOGOUT_REDIRECT_URL = '/home/'
 
-# Allauth settings
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_LOGOUT_ON_GET = True
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300  # 5 minutes in seconds
+# settings.py
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-ACCOUNT_EMAIL_CONFIRMATION = 'confirmation.txt'

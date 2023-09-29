@@ -1,15 +1,25 @@
 <!-- organization_profile.html -->
 
-<h1>Organization Profile</h1>
-<img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
-<p>Username: {{ profile.user.username }}</p>
-<p>Email: {{ profile.user.email }}</p>
-<p>Location: {{ profile.location }}</p> <!-- Display the user's location -->
-<!-- Display other profile information -->
+{% extends 'base.html' %}
 
-<h2>Edit Profile</h2>
-<form method="post" enctype="multipart/form-data">
+{% block content %}
+  <h2>Organization Profile</h2>
+  <p>Welcome, {{ user.username }}</p>
+  
+  <h3>Edit Profile</h3>
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Save Changes</button>
-</form>
+  </form>
+
+  {% if organization.profile_picture %}
+    <h3>Profile Picture</h3>
+    <img src="{{ organization.profile_picture.url }}" alt="{{ user.username }}'s profile picture" width="150">
+  {% endif %}
+
+  {% if organization.location %}
+    <h3>Location</h3>
+    <p>{{ organization.location }}</p>
+  {% endif %}
+{% endblock %}

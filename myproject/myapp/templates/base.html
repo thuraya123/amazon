@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Site Title{% endblock %}</title>
+    <!-- Add your CSS and JavaScript links here -->
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <!-- Add navigation links here -->
+            </ul>
+            {% if user.is_authenticated %}
+                <p>Welcome, {{ user.username }}</p>
+            {% else %}
+                <p><a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign up</a></p>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            {% block content %}
+            <!-- Content of individual pages will be inserted here -->
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <!-- Add footer content here -->
+    </footer>
+</body>
+</html>

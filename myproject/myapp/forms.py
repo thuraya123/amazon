@@ -1,59 +1,76 @@
+# accounts/forms.py
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser  # Import your custom user model
+from .models import ShoppingListItem
 
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser  # Import your custom user model
+from .models import ShoppingListItem
 
-class RegistrationForm(UserCreationForm):
-    category_choices = (
-        ('customer', 'Customer'),
-        ('organization', 'Organization'),
-    )
-    
-    category = forms.ChoiceField(
-        choices=category_choices,
-        required=True,
-        widget=forms.RadioSelect(attrs={'class': 'category-radio'}),
-    )
-
+class ShoppingListItemForm(forms.ModelForm):
     class Meta:
-        model = CustomUser  # Use your custom user model
-        fields = ('username', 'email', 'password1', 'password2', 'category')
+        model = ShoppingListItem
+        fields = ['product_name', 'product_type', 'expiration_date', 'quantity', 'amount_of_food']
+        widgets = {
+            'expiration_date': forms.DateInput(attrs={'type': 'date'}),
+        }
 
-from django.contrib.auth.forms import AuthenticationForm
 
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
 
-class LoginForm(AuthenticationForm):
-    category = forms.CharField(widget=forms.HiddenInput())  # Add a hidden field for category
+from django import forms
+
+class CustomerSignupForm(forms.Form):
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    username = forms.CharField(max_length=30)
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
+    reconfirm_password = forms.CharField(widget=forms.PasswordInput, label="Reconfirm Password")
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        reconfirm_password = cleaned_data.get("reconfirm_password")
+
+        if password != reconfirm_password:
+            raise forms.ValidationError("Passwords do not match.")
+
+class OrganizationSignupForm(forms.Form):
+    username = forms.CharField(max_length=30)
+    email = forms.EmailField()
+    industry = forms.CharField(max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput)
     
-    class Meta:
-        fields = ('username', 'password')
+    reconfirm_password = forms.CharField(widget=forms.PasswordInput, label="Reconfirm Password")
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        reconfirm_password = cleaned_data.get("reconfirm_password")
+
+        if password != reconfirm_password:
+            raise forms.ValidationError("Passwords do not match.")
+
+from django import forms
+
+class CustomerLoginForm(forms.Form):
+    username = forms.CharField(max_length=30)
+    password = forms.CharField(widget=forms.PasswordInput)
+
+class OrganizationLoginForm(forms.Form):
+    username = forms.CharField(max_length=30)
+    password = forms.CharField(widget=forms.PasswordInput)
 
 # forms.py
 
 from django import forms
-from .models import CustomerProfile, OrganizationProfile
+from .models import Customer, Organization
 
 class CustomerProfileForm(forms.ModelForm):
     class Meta:
-        model = CustomerProfile
-        fields = ['profile_picture', 'location']  # Add other fields here
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'] = forms.CharField(max_length=150, initial=self.instance.user.username, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-        self.fields['email'] = forms.EmailField(initial=self.instance.user.email, widget=forms.EmailInput(attrs={'readonly': 'readonly'}))
+        model = Customer
+        fields = ['profile_picture', 'pickup_location']
 
 class OrganizationProfileForm(forms.ModelForm):
     class Meta:
-        model = OrganizationProfile
-        fields = ['profile_picture', 'location']  # Add other fields here
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'] = forms.CharField(max_length=150, initial=self.instance.user.username, widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-        self.fields['email'] = forms.EmailField(initial=self.instance.user.email, widget=forms.EmailInput(attrs={'readonly': 'readonly'}))
+        model = Organization
+        fields = ['profile_picture', 'location', 'industry']
