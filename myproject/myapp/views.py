@@ -1,7 +1,8 @@
 # accounts/views.py
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Organization, ShoppingListItem
-from .forms import CustomerLoginForm, OrganizationLoginForm, ShoppingListItemForm
+from .models import DeliveryRequest, Organization, ShoppingListItem
+from .forms import CustomerLoginForm, DeliveryForm, OrganizationLoginForm, ShoppingListItemForm
 #from .models import Customer, Organization  # Import the Organization model
 
 from django.shortcuts import render, redirect
@@ -22,21 +23,26 @@ from .forms import CustomerSignupForm
 from django.contrib.auth.models import User
 from .models import Customer  # Import your Customer model
 
+from django.contrib.auth.models import User
+
 def customer_signup(request):
     if request.method == 'POST':
-        # Create a form instance and populate it with data from the request:
         form = CustomerSignupForm(request.POST)
-        
-        # Check if the form is valid
         if form.is_valid():
-            # Extract form data
             username = form.cleaned_data['username']
+            
+            # Check if the username is already taken
+            if User.objects.filter(username=username).exists():
+                # Handle the case where the username is not available
+                # You can display an error message or redirect back to the signup page
+                return HttpResponse("Username already taken, please choose another.")
+            
+            # The username is available, create the new user
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
 
-            # Create a new User object
             user = User.objects.create_user(
                 username=username,
                 email=email,
@@ -44,6 +50,9 @@ def customer_signup(request):
                 first_name=first_name,
                 last_name=last_name
             )
+
+            # Continue with the rest of your signup logic
+
 
             # Create a Customer object associated with the user
             customer = Customer(user=user)
@@ -215,3 +224,49 @@ def organization_profile(request):
     return render(request, 'organization_profile.html', {'form': form})
 from django.contrib.auth.decorators import login_required
 
+def main_page(request):
+    # Add any necessary context data here
+    return render(request, 'mainpage.html')
+
+from django.shortcuts import render
+
+def login_choice(request):
+    return render(request, 'login_choice.html')
+
+def delivery(request):
+    if request.method == 'POST':
+        form = DeliveryForm(request.POST)
+        if form.is_valid():
+            shopping_list_item = form.cleaned_data['shopping_list_item']
+            organization = form.cleaned_data['organization']
+            location = form.cleaned_data['location']
+            delivery_datetime = form.cleaned_data['delivery_datetime']
+
+            # Create a new DeliveryRequest object and save it to the database.
+            delivery_request = DeliveryRequest(
+                customer=request.user,
+                shopping_list_item=shopping_list_item,
+                organization=organization,
+                location=location,
+                delivery_datetime=delivery_datetime
+            )
+            delivery_request.save()
+
+            # Redirect to a success page or homepage.
+            return redirect('customer_homepage')
+
+    else:
+        form = DeliveryForm()
+
+    return render(request, 'delivery_form.html', {'form': form})
+def organization_delivery_requests(request, organization_id):
+    organization = Organization.objects.get(id=organization_id)
+    delivery_requests = DeliveryRequest.objects.filter(organization=organization)
+
+    # Now, you can use 'delivery_requests' in your template to display the data.
+    return render(request, 'organization_delivery_requests.html', {'delivery_requests': delivery_requests})
+def organization_homepage(request):
+    # Assuming the organization is associated with the logged-in user
+    organization = Organization.objects.get(user=request.user)
+
+    return render(request, 'organization_homepage.html', {'organization': organization})

@@ -74,3 +74,20 @@ class OrganizationProfileForm(forms.ModelForm):
     class Meta:
         model = Organization
         fields = ['profile_picture', 'location', 'industry']
+from django import forms
+from .models import ShoppingListItem, Organization
+
+class DeliveryForm(forms.Form):
+    shopping_list_item = forms.ModelChoiceField(
+        queryset=ShoppingListItem.objects.all(),
+        empty_label="Select an item from your shopping list"
+    )
+    organization = forms.ModelChoiceField(
+        queryset=Organization.objects.all(),
+        empty_label="Select an organization"
+    )
+    location = forms.CharField(max_length=100)
+    delivery_datetime = forms.DateTimeField(
+        input_formats=['%Y-%m-%d %H:%M:%S'],
+        widget=forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD HH:MM:SS'})
+    )

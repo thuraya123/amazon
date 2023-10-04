@@ -1,3 +1,5 @@
+{% include 'dashboard.html' %}
+
 <!-- shopping_list.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +17,7 @@
 <body>
     <h1>Shopping List</h1>
 
-    <form method="post">
+    <form method="post" action="{% url 'add_item' %}">
         {% csrf_token %}
         {{ form.as_p }}
 

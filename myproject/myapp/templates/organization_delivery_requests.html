@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}">
+    <style>
+        /* Custom CSS for centering and spacing */
+        body {
+            background-color: #659dbd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .table-container {
+            background-color: whitesmoke;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 80%; /* Adjust the width as needed */
+            text-align: center;
+        }
+
+        /* Style for the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <title>Organization Delivery Requests</title>
+</head>
+<body>
+    <div class="table-container">
+        <h1>Delivery Requests for {{ organization.username }}</h1>
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Item</th>
+                <th>Delivery Date and Time</th>
+            </tr>
+            {% for request in delivery_requests %}
+                <tr>
+                    <td>{{ request.customer.user.username }}</td>
+                    <td>{{ request.shopping_list_item }}</td>
+                    <td>{{ request.delivery_datetime }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No delivery requests for this organization.</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <footer>
+            <a href="{% url 'organization_homepage' %}">Go back to homepage</a>
+        </footer>
+    </div>
+</body>
+</html>

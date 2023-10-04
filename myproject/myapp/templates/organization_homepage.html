@@ -1,14 +1,61 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organization Homepage</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}">
+    <style>
+        body {
+            background-image: url("{% static '11.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: 'Lato', sans-serif;
+            color: #fff;
+            text-align: center;
+            padding: 50px;
+        }
+        .welcome-text {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .button {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            padding: 20px;
+        }
+        .button img {
+            width: 200px; /* Increase the width */
+            height: 200px; /* Increase the height */
+            margin-bottom: 10px;
+        }
+    </style>
+    <title>organization Homepage</title>
 </head>
 <body>
-    <h1>Welcome, {{ user.username }}</h1>
+   
     <div class="button-container">
-        <a href="{% url 'company_user_profile' %}" class="button">Profile</a>  <!-- Add this line -->
+
+       
+         
+        <a href="{% url 'organization_delivery_requests' organization_id=organization.id %}" class="button">
+                <img src="{% static 'ee.jpg' %}" alt="Button 1">
+                Donations
+        </a>
+        
+        
     </div>
 </body>
 </html>

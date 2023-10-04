@@ -1,0 +1,48 @@
+<!-- dashboard.html -->
+<style>
+    .dashboard {
+        background-color: #87CEEB; /* Baby blue background color */
+        padding: 10px;
+        display: flex;
+        justify-content: space-between; /* Align items to the left and right */
+        align-items: center;
+    }
+
+    .dashboard ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    .dashboard ul li {
+        margin-right: 20px; /* Add some space between list items */
+    }
+
+    .dashboard ul li:last-child {
+        margin-right: 0; /* Remove margin from the last item */
+    }
+
+    .dashboard ul li a {
+        text-decoration: none;
+        color: #FFFFFF; /* Text color for links */
+        font-weight: bold;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .dashboard ul li a:hover {
+        color: #0056b3; /* Text color on hover */
+    }
+
+    /* Add a separate class for the top-right corner position */
+    .top-right {
+        margin-left: auto; /* Push the element to the right corner */
+    }
+</style>
+
+<div class="dashboard">
+    <ul>
+        <li><a href="{% url 'customer_homepage' %}">Homepage</a></li>
+        <li class="top-right"><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+</div>

@@ -1,24 +1,65 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" type="text/css" href="{% static 'signup.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Add Bootstrap CSS link -->
+
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+        /* Custom CSS for centering and spacing */
+        body {
+            background-color: #659dbd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background-color: whitesmoke;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
     </style>
-    <title>Organization Login</title>
+    <title>organization Login</title>
 </head>
+
 <body>
-    <h1>Organization Login</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.username.label_tag }}
-        {{ form.username }}
-        {{ form.password.label_tag }}
-        {{ form.password }}
-        <button type="submit">Log In</button>
-    </form>
-    <p>Don't have an account? <a href="{% url 'organization_signup' %}">Sign up</a></p>
+    <div class="form-container">
+        <h1>Organization Login</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            <button type="submit" class="btn btn-primary">Log In</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'organization_signup' %}">Sign up</a></p>
+    </div>
 </body>
+
 </html>

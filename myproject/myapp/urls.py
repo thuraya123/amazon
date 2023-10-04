@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('customer/signup/', views.customer_signup, name='customer_signup'),
@@ -13,9 +14,14 @@ urlpatterns = [
     path('delete_item/<int:item_id>/', views.delete_item, name='delete_item'),
     path('customer/home/', views.customer_homepage, name='customer_homepage'),
     path('organization/home/', views.organization_homepage, name='organization_homepage'),
-    path('', views.signup_choice, name='signup_choice'),
+    path('pick1/', views.signup_choice, name='signup_choice'),
     path('customer/profile/', views.customer_profile, name='customer_profile'),
     path('organization/profile/', views.organization_profile, name='organization_profile'),
+    path('', views.main_page, name='mainpage'),
+    path('pick2/', views.login_choice, name='login_choice'), 
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('delivery/', views.delivery, name='delivery_form'),
+    path('organization/<int:organization_id>/delivery-requests/', views.organization_delivery_requests, name='organization_delivery_requests'),
     
 
     # Add other URL patterns as needed

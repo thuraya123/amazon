@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* Custom CSS for full-screen background image */
+        body {
+            background-image: url("{% static 'home.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #FFFFFF; /* Text color for the content */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            position: relative; /* Set position to relative for absolute positioning */
+        }
+
+        /* Custom styles for the content container */
+        .content-container {
+            text-align: center;
+            padding: 20px;
+            position: relative; /* Set position to relative for absolute positioning */
+        }
+
+        /* Custom styles for headings */
+        h1, h2 {
+            color: #007BFF; /* Heading text color */
+        }
+
+        /* Custom styles for buttons */
+        .btn-custom {
+            background-color: transparent; /* Transparent background */
+            color: #FFFFFF; /* Button text color */
+            border: none; /* Remove the border */
+            padding: 10px 20px;
+            margin-right: 10px;
+            border-radius: 5px;
+            text-decoration: none; /* Remove underlines from links */
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            position: absolute; /* Set position to absolute for overlay */
+        }
+
+        .btn-custom:hover {
+            background-color: transparent; /* Transparent background on hover */
+            color: #FFFFFF; /* Text color on hover */
+        }
+
+        /* Position the buttons */
+        .btn-signup {
+            top: 20px;
+            right: 20px;
+        }
+
+        .btn-login {
+            top: 60px; /* Adjust the top position as needed */
+            right: 20px;
+        }
+
+        /* Text on the image */
+        .image-text {
+            text-align: center;
+            position: absolute;
+            top: 20px; /* Adjust the top position as needed */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Center horizontally */
+        }
+    </style>
+    <title>Your Website</title>
+</head>
+<body>
+
+    <!-- Main content container -->
+    <div class="content-container">
+        <!-- Button container for overlay -->
+        <div class="button-container">
+            <a href="{% url 'signup_choice' %}" class="btn btn-custom btn-signup">Sign Up</a>
+            <a href="{% url 'login_choice' %}" class="btn btn-custom btn-login">Log In</a>
+        </div>
+
+        <!-- Photo section -->
+        <div class="photo">
+            <img src="{% static 'home.jpg' %}" alt="Website Photo" class="img-fluid">
+        </div>
+
+        <!-- Text on the image -->
+        <div class="image-text">
+            <h1>Forward Meals</h1>
+            <p>Have leftover food?... donate it!</p>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery scripts if needed -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+</body>
+</html>

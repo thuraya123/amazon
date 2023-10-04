@@ -4,13 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Item</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Center the content vertically and horizontally */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #87CEEB; /* Baby blue background color */
+        }
+
+        /* Style the form container */
+        .form-container {
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: beige; /* Beige background color for the form */
+        }
+
+        /* Style the form elements */
+        form {
+            margin-bottom: 0; /* Remove default margin */
+        }
+
+        /* Style the form button */
+        button[type="submit"] {
+            background-color: #007BFF; /* Button background color */
+            color: #fff; /* Button text color */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3; /* Button background color on hover */
+        }
+
+        /* Hide the "This field is required" text */
+        .errorlist {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Edit Item</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save Changes</button>
-    </form>
+    <div class="form-container">
+        <h1 class="text-center">Edit Item</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="text-center">
+                <button type="submit">Save Changes</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

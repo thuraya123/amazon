@@ -4,13 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Item</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Center the content vertically and horizontally */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #87CEEB; /* Baby blue background color */
+        }
+
+        /* Style the container */
+        .container {
+            text-align: center;
+            background-color: beige; /* Beige background color for the container */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px; /* Adjust the max width as needed */
+        }
+
+        /* Style the delete button and cancel button */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button[type="submit"], button[type="button"] {
+            background-color: #FF0000; /* Red button background color */
+            color: #fff; /* Button text color */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover, button[type="button"]:hover {
+            background-color: #CC0000; /* Red button background color on hover */
+        }
+    </style>
+    
 </head>
 <body>
-    <h1>Delete Item</h1>
-    <p>Are you sure you want to delete {{ item.product_name }}?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Delete</button>
-    </form>
+    <div class="container">
+        <h1>Delete Item</h1>
+        <p>Are you sure you want to delete {{ item.product_name }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="button-container">
+                <button type="submit">Delete</button>
+                <button type="button" onclick="window.history.back()">Cancel</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

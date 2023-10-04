@@ -1,0 +1,22 @@
+/* styles.css */
+body {
+    background-color: #f0f8ff; /* Baby Blue background */
+}
+
+.container {
+    max-width: 400px; /* Adjust container width as needed */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff; /* White background */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background-color: #3498db; /* Bootstrap primary color (blue) */
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
